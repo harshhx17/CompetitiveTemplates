@@ -77,6 +77,12 @@ const int dy8[] = {0, 1, 0, -1, -1, 1, -1, 1};
 #define MOD 1000000007
 #define dec decr
 //END OF COMPETITVE PROGRAMMING TEMPLATE
+ll gcd(ll a, ll b) 
+{ 
+    if (a == 0) 
+        return b; 
+    return gcd(b % a, a); 
+} 
 int main()
 {
     ios_base::sync_with_stdio(false);

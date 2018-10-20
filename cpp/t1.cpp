@@ -16,6 +16,7 @@ using namespace std;
 #define arr2d0(a,n,m) cout << #a << " :" << endl; rep(_,n) {rep(__,m) cout << a[_][__] << ' '; cout << endl;}
 
 #define ull unsigned long long
+#define swap(a,b) a=a^b;b=a^b;a=a^b;
 
 #define ld double
 #define ui unsigned int
@@ -104,8 +105,7 @@ int main()
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
     #endif
-    int t;
-    // t = 1;
+    int t = 1;
     cin>>t;
     while(t--){
 

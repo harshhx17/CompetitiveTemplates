@@ -1,0 +1,26 @@
+vector<ll> lst[MAXN];
+ll parent[MAXN];
+
+void make_set(ll v) {
+    lst[v] = vector<ll>(1, v);
+    parent[v] = v;
+}
+
+ll find_set(ll v) {
+    return parent[v];
+}
+
+void union_sets(ll a, ll b) {
+    a = find_set(a);
+    b = find_set(b);
+    if (a != b) {
+        if (lst[a].size() < lst[b].size())
+            swap(a, b);
+        while (!lst[b].empty()) {
+            ll v = lst[b].back();
+            lst[b].pop_back();
+            parent[v] = a;
+            lst[a].push_back (v);
+        }
+    }
+}

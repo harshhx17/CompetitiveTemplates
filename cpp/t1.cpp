@@ -1,8 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define ll long long
-#define fr(i,a,b) for (int i = (a), _b = (b); i <= _b; i++)
-#define frr(i,a,b) for (int i = (a), _b = (b); i >= _b; i--)
+#define fr(i,a,b) for (ll i = (a), _b = (b); i <= _b; i++)
+#define frr(i,a,b) for (ll i = (a), _b = (b); i >= _b; i--)
 #define rep(i,n) for (ll i = 0, _n = (n); i < _n; i++)
 #define repr(i,n) for (ll i = (n) - 1; i >= 0; i--)
 #define foreach(it,ar) for ( typeof(ar.begin()) it = ar.begin(); it != ar.end(); it++ )

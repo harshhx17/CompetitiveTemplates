@@ -1,0 +1,90 @@
+// C++ program for implementation of KMP pattern searching 
+// algorithm 
+#include <bits/stdc++.h> 
+using namespace std;
+long long cx=0;
+void computeLPSArray(char* pat, long long M, long long* lps); 
+  
+// Prlong longs occurrences of txt[] in pat[] 
+void KMPSearch(char* pat, char* txt) 
+{ 
+    long long M = strlen(pat); 
+    long long N = strlen(txt); 
+  
+    // create lps[] that will hold the longest prefix suffix 
+    // values for pattern 
+    long long lps[M]; 
+  
+    // Preprocess the pattern (calculate lps[] array) 
+    computeLPSArray(pat, M, lps); 
+  
+    long long i = 0; // index for txt[] 
+    long long j = 0; // index for pat[] 
+    while (i < N) { 
+        if (pat[j] == txt[i]) { 
+            j++; 
+            i++; 
+        } 
+  
+        if (j == M) { 
+        	cx++;
+            j = lps[j - 1]; 
+        } 
+  
+        // mismatch after j matches 
+        else if (i < N && pat[j] != txt[i]) { 
+            // Do not match lps[0..lps[j-1]] characters, 
+            // they will match anyway 
+            if (j != 0) 
+                j = lps[j - 1]; 
+            else
+                i = i + 1; 
+        } 
+    } 
+} 
+  
+// Fills lps[] for given patttern pat[0..M-1] 
+void computeLPSArray(char* pat, long long M, long long* lps) 
+{ 
+    // length of the previous longest prefix suffix 
+    long long len = 0; 
+  
+    lps[0] = 0; // lps[0] is always 0 
+  
+    // the loop calculates lps[i] for i = 1 to M-1 
+    long long i = 1; 
+    while (i < M) { 
+        if (pat[i] == pat[len]) { 
+            len++; 
+            lps[i] = len; 
+            i++; 
+        } 
+        else // (pat[i] != pat[len]) 
+        { 
+            // This is tricky. Consider the example. 
+            // AAACAAAA and i = 7. The idea is similar 
+            // to search step. 
+            if (len != 0) { 
+                len = lps[len - 1]; 
+  
+                // Also, note that we do not increment 
+                // i here 
+            } 
+            else // if (len == 0) 
+            { 
+                lps[i] = 0; 
+                i++; 
+            } 
+        } 
+    } 
+} 
+  
+// Driver program to test above function 
+int main() 
+{ 
+    char txt[] = "101010"; 
+    char pat[] = "101"; 
+    KMPSearch(pat, txt); 
+    cout<<cx<<endl;
+    return 0; 
+}

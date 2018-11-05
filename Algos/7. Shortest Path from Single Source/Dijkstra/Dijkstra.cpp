@@ -1,97 +1,45 @@
-#include <algorithm>
-#include <bitset>
-#include <cctype>
-#include <cmath>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <iostream>
-#include <map>
-#include <utility>
-#include <deque>
-#include <list>
-#include <sstream>
-#include <fstream>
-#include <complex>
-#include <queue>
-#include <set>
-#include <stack>
-#include <string>
-#include <vector>
-#include <cassert>
-#include <iostream>
-#include <utility>
-#include <iterator>
-#include <numeric>
-#include <climits>
-#include <iomanip>
-
+#include<bits/stdc++.h>
 using namespace std;
-
-#define fr(i,a,b) for (int i = (a), _b = (b); i <= _b; i++)
-#define frr(i,a,b) for (int i = (a), _b = (b); i >= _b; i--)
-#define rep(i,n) for (int i = 0, _n = (n); i < _n; i++)
-#define repr(i,n) for (int i = n - 1; i >= 0; i--)
-
 #define ll long long
-#define ld double
+#define VV vector
 #define pb push_back
+#define bitc  __builtin_popcountl
 #define mp make_pair
-#define ff first
-#define ss second
-#define INF 1000000
+#define inf 200000000000000
+#define swap(a,b) {a=a^b;b=a^b;a=a^b;}
+#define fr(i,a,b) for (ll i = (a), _b = (b); i <= _b; i++)
+#define rep(i,n) for (ll i = 0, _n = (n); i < _n; i++)
+#define debug(x) cout<<#x<<": "<<x<<endl;
 
-typedef pair<int, int> ii;
-typedef pair<ii, int> iii;
-typedef vector<ii> vii;
-typedef vector<int> vi;
+vector<vector<pair<ll, ll>>> adj;
 
-int findMin(int dist[], bool done[], int v)              // Acts as a priority queue!
-                                                         // We can also use map as a priority queue!!
-{
-    int mini = INF+1;
-    int ind = -1;
-    rep(i,v)
-    {
-        if(!done[i+1] && dist[i+1]<mini)
-        {
-            mini = dist[i+1];
-            ind = i+1;
+void dijkstra(ll s, vector<ll> & d, vector<ll> & p) {
+    ll n = adj.size();
+    d.assign(n, inf);
+    p.assign(n, -1);
+
+    d[s] = 0;
+    using pii = pair<ll, ll>;
+    priority_queue<pii, vector<pii>, greater<pii>> q;
+    q.push({0, s});
+    while (!q.empty()) {
+        ll v = q.top().second;
+        ll d_v = q.top().first;
+        q.pop();
+        if (d_v != d[v])
+            continue;
+
+        for (auto edge : adj[v]) {
+            ll to = edge.first;
+            ll len = edge.second;
+
+            if (d[v] + len < d[to]) {
+                d[to] = d[v] + len;
+                p[to] = v;
+                q.push({d[to], to});
+            }
         }
     }
-    return ind;
-}
-
-void dijkstra(int source, vector<pair<int, int> > ed[], int v, int n)
-{
-    int dist[v+1];
-    bool done[v+1];
-    rep(i,v)
-    {
-        dist[i+1] = INF;
-        done[i+1] = false;
-    }
-    dist[source] = {0};
-    rep(i,v)
-    {
-        int minKey = findMin(dist, done, v);
-        rep(j, ed[minKey].size())
-        {
-            int a = minKey;
-            int b = ed[a][j].ff;
-            int w = ed[a][j].ss;
-            if(!done[b] && dist[a]+w < dist[b])
-            {
-                dist[b] = dist[a]+w;
-            }
-        }   
-        done[minKey]=true; 
-    }
-    rep(i,v)
-    {
-        cout << dist[i+1] << endl;
-    }
-
 }
 
 int main()
@@ -102,24 +50,14 @@ int main()
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
     #endif
-    
-    int v;
-    cin >> v;
-    vector<pair<int, int> > ed[v+1];
-    int n;
-    cin >> n;
-    rep(i,n)
-    {
-        int a;
-        cin >> a;
-        int b;
-        cin >> b;
-        int w;
-        cin >> w;
-        ed[a].push_back(mp(b,w));
-        ed[b].push_back(mp(a,w));
+    ll t = 1;
+    // cin>>t;
+    while(t--){
+        ll n,m;
+        cin>>n>>m;
+        rep(i,n){
+            vector<pair<ll, ll>> d;
+            adj.pb(d);
+        }
     }
-    int source;
-    cin >> source;
-    dijkstra(source,ed,v,n);
 }

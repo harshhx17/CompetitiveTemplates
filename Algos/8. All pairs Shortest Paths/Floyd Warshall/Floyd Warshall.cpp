@@ -1,107 +1,86 @@
-#include <algorithm>
-#include <bitset>
-#include <cctype>
-#include <cmath>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <iostream>
-#include <map>
-#include <utility>
-#include <deque>
-#include <list>
-#include <sstream>
-#include <fstream>
-#include <complex>
-#include <queue>
-#include <set>
-#include <stack>
-#include <string>
-#include <vector>
-#include <cassert>
-#include <iostream>
-#include <utility>
-#include <iterator>
-#include <numeric>
-#include <climits>
-#include <iomanip>
+/*
+V^3 complexity
+Can be used for directed graphs
+*/
 
+#include<bits/stdc++.h>
 using namespace std;
 
-#define fr(i,a,b) for (int i = (a), _b = (b); i <= _b; i++)
-#define frr(i,a,b) for (int i = (a), _b = (b); i >= _b; i--)
-#define rep(i,n) for (int i = 0, _n = (n); i < _n; i++)
-#define repr(i,n) for (int i = n - 1; i >= 0; i--)
+typedef long long ll;
+typedef pair<ll, ll> pll;
+// not that imp
+typedef pair<pll, ll> plll;
+typedef vector<ll> vl;
+typedef vector<pll> vll;
 
-#define ll long long
-#define ld double
 #define pb push_back
+#define bitc  __builtin_popcountl
 #define mp make_pair
 #define ff first
 #define ss second
-#define INF 1000000
 
-typedef pair<int, int> ii;
-typedef pair<ii, int> iii;
-typedef vector<ii> vii;
-typedef vector<int> vi;
+#define swap(a,b) {a=a^b;b=a^b;a=a^b;}
+#define fr(i,a,b) for (ll i = (a), _b = (b); i <= _b; i++)
+#define rep(i,n) for (ll i = 0, _n = (n); i < _n; i++)
+#define repr(i,n) for (int i = n - 1; i >= 0; i--)
+#define frr(i,a,b) for (int i = (a), _b = (b); i >= _b; i--)
+#define debug(x) cout<<#x<<": "<<x<<endl;
 
-int main()
-{
-    ios_base::sync_with_stdio(false);
+#define inf 200000000000000ll
+#define mod 1000000007ll
+ 
+const ll MAXN = 505;
+ll adjMin[MAXN][MAXN];
+ll adj[MAXN][MAXN];
+
+int main() 
+{ 
+	ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     #ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
+        freopen("input.txt", "r", stdin);
+        freopen("output.txt", "w", stdout);
     #endif
-    
-    int v;
-    cin >> v;
-    int n;
-    cin >> n;
-    int mat[v+1][v+1];                          // Used when there is adjacency matrix representation of the graph!
-    rep(i,v)
-    {
-        rep(j,v)
-        {
-            mat[i+1][j+1] = INF;
+    int t = 1;
+    // cin>>t;
+    while(t--){
+        ll n,m;
+        cin>>n>>m;
+        ll x,y,z;
+        //initialise adj matrix
+        rep(i,n){
+            rep(j,n){
+                adj[i][j] = inf;
+            }
+            adj[i][i] = 0;
         }
-        mat[i+1][i+1] = 0;
-    }
-    rep(i,n)
-    {
-        int a;
-        cin >> a;
-        int b;
-        cin >> b;
-        int w;
-        cin >> w;
-        mat[a][b] = w;
-    }
-    int dp[v+1][v+1];
-    rep(i,v)
-    {
-        rep(j,v)
-        {
-            dp[i+1][j+1] = mat[i+1][j+1];                   // dp = mat initially 
+        //take input edges for undirected graph
+        rep(i,m){
+            cin>>x>>y>>z;
+            x--;y--;
+            adj[x][y] = z;
+            adj[y][x] = z; //comment out this line for directed graph
         }
-    }
-    rep(k,v)
-    {
-        rep(i,v)
-        {
-            rep(j,v)
-            {
-                dp[i+1][j+1] = min(dp[i+1][j+1], dp[i+1][k+1] + dp[k+1][j+1]);    // main recursion!
+        //copy adj to adjMin if you want to preserve adj for some reason
+        rep(i,n){
+            rep(j,n){
+                adjMin[i][j] = adj[i][j];
             }
         }
-    }
-    rep(i,v)
-    {
-        rep(j,v)
-        {
-            cout << dp[i+1][j+1] << " ";
+        //the main loop taking each vertex as intermediate vertex one by one
+        rep(k,n){
+            rep(i,n){
+                rep(j,n){
+                    adj[i][j] = min(adj[i][j], adj[i][k] + adj[k][j]);
+                }
+            }
         }
-        cout << endl;
+        //print the adj matrix
+        rep(i,n){
+            rep(j,n){
+                cout<<adj[i][j]<<" ";
+            }
+            cout<<"\n";
+        }
     }
 }

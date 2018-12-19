@@ -20,6 +20,7 @@ typedef vector<pll> vll;
 #define repr(i,n) for (int i = n - 1; i >= 0; i--)
 #define frr(i,a,b) for (int i = (a), _b = (b); i >= _b; i--)
 #define debug(x) cout<<#x<<": "<<x<<endl;
+#define debug2(x,y) cout<<#x<<": "<< x<< ", "<< #y<< ": "<< y<< endl;
 
 #define inf 200000000000000ll
 #define mod 1000000007ll

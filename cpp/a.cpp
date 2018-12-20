@@ -29,7 +29,7 @@ typedef vector<pll> vll;
 int main() 
 { 
 	ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+    cin.tie(NULL); cout.precision(10);
     #ifndef ONLINE_JUDGE
         freopen("input.txt", "r", stdin);
         freopen("output.txt", "w", stdout);

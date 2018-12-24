@@ -25,7 +25,8 @@ typedef vector<pll> vll;
 #define inf 200000000000000ll
 #define mod 1000000007ll
 
- 
+ll gcd(ll a, ll b){ return b==0 ? a : gcd(b, a%b); }
+
 int main() 
 { 
 	ios_base::sync_with_stdio(false);

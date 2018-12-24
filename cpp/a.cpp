@@ -17,8 +17,8 @@ typedef vector<pll> vll;
 #define swap(a,b) {a=a^b;b=a^b;a=a^b;}
 #define fr(i,a,b) for (ll i = (a), _b = (b); i <= _b; i++)
 #define rep(i,n) for (ll i = 0, _n = (n); i < _n; i++)
-#define repr(i,n) for (int i = n - 1; i >= 0; i--)
-#define frr(i,a,b) for (int i = (a), _b = (b); i >= _b; i--)
+#define repr(i,n) for (ll i = n - 1; i >= 0; i--)
+#define frr(i,a,b) for (ll i = (a), _b = (b); i >= _b; i--)
 #define debug(x) cout<<#x<<": "<<x<<endl;
 #define debug2(x,y) cout<<#x<<": "<< x<< ", "<< #y<< ": "<< y<< endl;
 

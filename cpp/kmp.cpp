@@ -1,25 +1,24 @@
+ll lps[maxn];
+
 bool kmp(string pat, string txt){
     ll i = 0, j=0;
     ll l = txt.length(), m=pat.length();
     while(i<l){
-        if(j == m){
-            if(i!=m && i!=l)
-                return true;
-            else{
-                // i++;
-                j = a[j-1];
-            }
-        }
-        else if(txt[i] == pat[j]){
+        if(txt[i] == pat[j]){
             i++;
             j++;
+            if(j == m){
+                j = lps[j-1];
+              	cout<<i-m<<"\n";
+                //found one
+            }
         }
         else if(txt[i] != pat[j]){
             if(j == 0){
                 i++;
             }
             else{
-                j = a[j-1];
+                j = lps[j-1];
             }
         }
     }
@@ -34,7 +33,7 @@ void make_lps(string s){
     while(i<n){
         if(s[i] == s[len]){
             len++;
-            a[i] = len;
+            lps[i] = len;
             i++;
         }
         else {
@@ -43,7 +42,7 @@ void make_lps(string s){
                 i++;
             }
             else{
-                len = a[len-1];
+                len = lps[len-1];
             }
         }
     }

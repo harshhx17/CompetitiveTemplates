@@ -31,8 +31,8 @@ void build(ll ind, ll l, ll r) {
         tree[ind] = a[l];
     } else {
         ll mid = (l + r) / 2;
-        build(a, ind*2+1, l, mid);
-        build(a, ind*2+2, mid+1, r);
+        build(ind*2+1, l, mid);
+        build(ind*2+2, mid+1, r);
         tree[ind] = tree[ind*2+1] + tree[ind*2+2];
         //tree[ind] = min(tree[ind*2+1] + tree[ind*2+2]);
     }

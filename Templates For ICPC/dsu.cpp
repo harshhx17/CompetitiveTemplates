@@ -10,20 +10,17 @@ ll find_set(ll v) {
 //run this for the entire array
 void make_set(ll v) {
     parent[v] = v;
-    sizeRank[v] = 0;//
-    // size[v] = 1;
+    sizeRank[v] = 0;
 }
 
 void union_sets(ll a, ll b) {
     a = find_set(a);
     b = find_set(b);
     if (a != b) {
-        // if(size[a] < size[b])
-        if (sizeRank[a] < sizeRank[b])//
+        if (sizeRank[a] < sizeRank[b])
             swap(a, b);
         parent[b] = a;
-        if (sizeRank[a] == sizeRank[b])//
-            sizeRank[a]++;//
-        // size[a] += size[b];
+        if (sizeRank[a] == sizeRank[b])
+            sizeRank[a]++;
     }
 }

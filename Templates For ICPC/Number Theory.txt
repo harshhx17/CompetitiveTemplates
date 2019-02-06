@@ -1,0 +1,27 @@
+NUMBER THEORY
+    1. a^(b^c) mod m = a^((b^c) mod n) mod m, where n = φ(m) Euler's totient function.
+    2. Phi of n = n*(Product of (1-(1/p))) where p is a prime factor of n which is considered only ONCE.  ----> Eulers totient Function
+    3. (a ^ p) mod p  = a (mod p).  ------> Fermats little theorum.(generalisation of Euler's theorem)(for any p that doesnot divide a)
+    4. (a^φ(m)) mod p = 1 (mod p) -----> Euler's theorem
+    5. Chinese Remainder Theorum :-
+        x % num[0]    =  rem[0], 
+        x % num[1]    =  rem[1], 
+        .......................
+        x % num[k-1]  =  rem[k-1]
+        SMALLEST SUCH x =  ( SUM OF (rem[i]*pp[i]*inv[i]) ) % prod Where 0 <= i <= n-1
+    6. Calculation of modInverse for prime numbers, a^(p-2)..(φ(m) - 1)... from Fermat's little theorem
+    7. For nCr which ranges in around 10^18 and we don't have to take modulus, use nCr = n-1Cr-1 + n-1Cr;
+
+rem[i] is given array of remainders
+
+prod is product of all given numbers
+prod = num[0] * num[1] * ... * num[k-1]
+
+pp[i] is product of all divided by num[i]
+pp[i] = prod / num[i]
+
+inv[i] = Modular Multiplicative Inverse of 
+         pp[i] with respect to num[i]
+
+
+

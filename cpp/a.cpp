@@ -52,11 +52,6 @@ void __f(const char* names, Arg1&& arg1, Args&&... args){
 
 ll gcd(ll a, ll b){ return b==0 ? a : gcd(b, a%b); }
 
-const ll maxn = 205;
-double dp[maxn][maxn][maxn];
-ll p[maxn];
-ll a[maxn];
-
 int main() 
 { 
     start_routine();
@@ -70,23 +65,8 @@ int main()
     int t = 1;
     // cin>>t;
     while(t--){
-        ll n,l,k;
-        cin>>n>>l>>k;
-        rep(i,n) cin>>p[i];
-        rep(i,n) cin>>a[i];
-        dp[0][0][k] = 1;
-        rep(i,n){
-            rep(j,n){
-                rep(k,n){
-                    dp[i+1][j][k] = (dp[i+1][j][k])*(100-p[i])/100; 
-                    if(k+a[i] <= 200)
-                        dp[i+1][j+1][k+a[i]] = (dp[i+1][j][k])*(100-p[i])/100; 
-                    else{
-                        dp[i+1][j+1][200] = (dp[i+1][j][k])*(100-p[i])/100; 
-                    }
-                }
-            }
-        }
+        ll n,m;
+        cin>>n>>m;
     }
     end_routine();
 }

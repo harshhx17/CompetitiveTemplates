@@ -11,7 +11,7 @@ void dfs(ll v, ll p)
     tin[v] = ++timer;
     up[0][v] = p;
     for (ll i = 1; i <= l; ++i)
-        up[i][v] = up[i-1][up[v][i-1]];
+        up[i][v] = up[i-1][up[i-1][v]];
 
     for (ll u : adj[v]) {
         if (u != p)

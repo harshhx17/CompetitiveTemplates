@@ -5,26 +5,38 @@
 #endif
 
 #include<bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
 using namespace std;
+using namespace __gnu_pbds;
 
 typedef long long ll;
 typedef pair<ll, ll> pll;
+typedef gp_hash_table<long long, long long> umap;
 // not that imp
 typedef pair<pll, ll> plll;
 typedef vector<ll> vl;
 typedef vector<pll> vll;
 
+#define inf 200000000000000ll
+#define mod 1000000007ll
+#define eps 1e-7
+
 #define pb push_back
-#define bitc  __builtin_popcountl
+#define bitc  __builtin_popcountll
 #define mp make_pair
 #define ff first
 #define ss second
+#define all(ar) ar.begin(), ar.end()
 
-#define swap(a,b) {a=a^b;b=a^b;a=a^b;}
 #define fr(i,a,b) for (ll i = (a), _b = (b); i <= _b; i++)
 #define rep(i,n) for (ll i = 0, _n = (n); i < _n; i++)
 #define repr(i,n) for (ll i = n - 1; i >= 0; i--)
 #define frr(i,a,b) for (ll i = (a), _b = (b); i >= _b; i--)
+#define foreach(it,ar) for ( typeof(ar.begin()) it = ar.begin(); it != ar.end(); it++ )
+#define fill(ar,val) memset(ar, val, sizeof(ar))
+//not so imp
+#define fill0(ar) fill((ar), 0)
+#define fillinf(ar) fill((ar), inf)
 
 #ifdef bhartiya
 #define trace(...) __f(#__VA_ARGS__, __VA_ARGS__)
@@ -46,10 +58,7 @@ void __f(const char* names, Arg1&& arg1, Args&&... args){
 #define end_routine()
 #endif
 
-#define inf 200000000000000ll
-#define mod 1000000007ll
-#define eps 1e-7
-
+inline bool equals(double a, double b) {return fabs(a - b) < 1e-9;}
 ll gcd(ll a, ll b){ return b==0 ? a : gcd(b, a%b); }
 
 int main() 

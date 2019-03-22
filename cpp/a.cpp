@@ -32,7 +32,7 @@ typedef vector<pll> vll;
 #define rep(i,n) for (ll i = 0, _n = (n); i < _n; i++)
 #define repr(i,n) for (ll i = n - 1; i >= 0; i--)
 #define frr(i,a,b) for (ll i = (a), _b = (b); i >= _b; i--)
-#define foreach(it,ar) for ( typeof(ar.begin()) it = ar.begin(); it != ar.end(); it++ )
+#define foreach(it,ar) for (auto it = ar.begin(); it != ar.end(); it++)
 #define fill(ar,val) memset(ar, val, sizeof(ar))
 //not so imp
 #define fill0(ar) fill((ar), 0)
@@ -47,10 +47,9 @@ void __f(const char* name, Arg1&& arg1){
 template <typename Arg1, typename... Args>
 void __f(const char* names, Arg1&& arg1, Args&&... args){
 	const char* comma = strchr(names + 1, ',');cout.write(names, comma - names) << " : " << arg1<<" | ";__f(comma+1, args...);
-#define start_routine() int begtime = clock();
-#define end_routine() int endtime = clock(); \
-					  cout << "\n\nTime elapsed: " << (endtime - begtime)*1000/CLOCKS_PER_SEC << " ms\n\n";
 }
+int begtime = clock();
+#define end_routine() cout << "\n\nTime elapsed: " << (clock() - begtime)*1000/CLOCKS_PER_SEC << " ms\n\n";
 #else
 #define endl '\n'
 #define trace(...)
@@ -63,9 +62,8 @@ ll gcd(ll a, ll b){ return b==0 ? a : gcd(b, a%b); }
 
 int main() 
 { 
-    start_routine();
 	ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.precision(10);
+    cin.tie(0), cout.tie(0), cout.precision(10); //cout<<fixed;
     cin.exceptions(cin.failbit);
     #ifdef bhartiya
         freopen("input.txt", "r", stdin);

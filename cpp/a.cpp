@@ -1,6 +1,6 @@
 #ifndef bhartiya
-    // #pragma GCC optimize("Ofast")
-    // #pragma GCC optimize("unroll-loops")
+    #pragma GCC optimize("Ofast")
+    #pragma GCC optimize("unroll-loops")
     // #pragma GCC target ("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,tune=native")
 #endif
 
@@ -53,7 +53,6 @@ int begtime = clock();
 #else
 #define endl '\n'
 #define trace(...)
-#define start_routine()
 #define end_routine()
 #endif
 

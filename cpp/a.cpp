@@ -1,13 +1,14 @@
+#include<bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+using namespace std;
+using namespace __gnu_pbds;
+
 #ifndef bhartiya
     #pragma GCC optimize("Ofast")
     #pragma GCC optimize("unroll-loops")
     // #pragma GCC target ("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,tune=native")
 #endif
 
-#include<bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-using namespace std;
-using namespace __gnu_pbds;
 
 typedef long long ll;
 typedef pair<ll, ll> pll;
@@ -59,6 +60,9 @@ int begtime = clock();
 inline bool equals(double a, double b) {return fabs(a - b) < 1e-9;}
 ll gcd(ll a, ll b){ return b==0 ? a : gcd(b, a%b); }
 
+const ll maxn = 500005;
+ll n;
+
 int main() 
 { 
 	ios_base::sync_with_stdio(false);
@@ -71,8 +75,7 @@ int main()
     int t = 1;
     // cin>>t;
     while(t--){
-        ll n,m;
-        cin>>n>>m;
+        cin>>n;
     }
     end_routine();
 }

@@ -44,10 +44,8 @@ void DFS(ll source, vector<ll> ed[], ll v, bool visited[], stack<ll> &s)
     {
         if(!visited[i+1])
         {
-            DFS(i+1, ed, v, visited, s);          // Pushes vertices in stack according to their 
-                                                  // finishing time of DFS, if vertex 1 finishes 
-                                                  // after vertex 2, then 1 is pushed after 2 
-                                                  // in stack !
+            DFS(i+1, ed, v, visited, s);          
+            /** Pushes vertices in stack according to their finishing time of DFS, if vertex 1 finishes after vertex 2, then 1 is pushed after 2 in stack ! */
         }
     }
 

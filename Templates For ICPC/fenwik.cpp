@@ -26,3 +26,27 @@ struct FenwickTree {
             add(i, a[i]);
     }
 };
+
+
+
+//////
+//Ritick waala
+//////
+
+//For sum in one-dimentional array
+ll n1=200006;//size of fenwick tree
+ll bt[200006];
+ll getSum(ll x)
+{
+    ll sum=0;
+    for(;x>=1;x-=x&-x)
+        sum+=bt[x];
+    return sum;
+}
+void update(ll x, ll d)
+{
+    for(;x<=n1;x+=x&-x)
+    {
+        bt[x]+=d;
+    }
+}

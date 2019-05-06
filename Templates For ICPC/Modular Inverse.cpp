@@ -19,11 +19,13 @@ void modInverse(ll a, ll m)
 { 
     ll x, y; 
     ll g = gcdExtended(a, m, &x, &y); 
-    if (g != 1) 
-        cout << "Inverse doesn't exist"; 
+    if (g != 1) {
+        // Modular inverse doesn't exist
+        return -1;
+    }
     else
     { 
         ll res = (x%m + m) % m; 
-        cout << "Modular multiplicative inverse is " << res; 
+        return res;
     } 
 } 

@@ -21,6 +21,8 @@ typedef vector<pll> vll;
 #define inf 200000000000000ll
 #define mod 1000000007ll
 #define eps 1e-7
+#define PI 3.1415926535897932385
+// #define PI acos(-1)
 
 #define pb push_back
 #define bitc  __builtin_popcountll
@@ -35,9 +37,6 @@ typedef vector<pll> vll;
 #define frr(i,a,b) for (ll i = (a), _b = (b); i >= _b; i--)
 #define foreach(it,ar) for (auto it = ar.begin(); it != ar.end(); it++)
 #define fill(ar,val) memset(ar, val, sizeof(ar))
-//not so imp
-#define fill0(ar) fill((ar), 0)
-#define fillinf(ar) fill((ar), inf)
 
 #ifdef bhartiya
 #define trace(...) __f(#__VA_ARGS__, __VA_ARGS__)
@@ -57,6 +56,7 @@ int begtime = clock();
 #define end_routine()
 #endif
 
+mt19937 rng32(chrono::steady_clock::now().time_since_epoch().count());
 inline bool equals(double a, double b) {return fabs(a - b) < 1e-9;}
 ll gcd(ll a, ll b){ return b==0 ? a : gcd(b, a%b); }
 

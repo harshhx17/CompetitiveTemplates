@@ -1,20 +1,9 @@
-ll gcd(ll a, ll b) 
-{ 
-    if (a == 0) 
-        return b; 
-    return gcd(b % a, a); 
-} 
+ll gcd(ll a, ll b){ return b==0 ? a : gcd(b, a%b); }
 
-ll modexp(ll x, ll y, ll p)
-{
-    ll res = 1;   
-    x = x % p;  
-    while (y > 0)
-    {
-        if (y & 1)    
-            res = (res*x) % p;
-        y = y>>1;     
-        x = (x*x) % p; 
-    }
-    return res;
+ll modPow(ll a, ll b){
+    if(b==0) return 1;
+    if(b==1) return a%mod;
+    ll x = modPow(a, b/2);
+    x = (x*x)%mod;
+    return b&1 ? (x*a)%mod : x;
 }

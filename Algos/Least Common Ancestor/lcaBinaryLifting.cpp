@@ -40,7 +40,6 @@ ll lca(ll u, ll v)
 }
 
 void preprocess(ll root) {
-    timer = 0;
     l = ceil(log2(n));
     dfs(root, root);
 }

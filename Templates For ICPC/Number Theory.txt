@@ -3,7 +3,7 @@ NUMBER THEORY
     2. Phi of n = n*(Product of (1-(1/p))) where p is a prime factor of n which is considered only ONCE.  ----> Eulers totient Function
     3. (a ^ p) mod p  = a (mod p).  ------> Fermats little theorum.(generalisation of Euler's theorem)(for any p that doesnot divide a)
     4. (a^φ(m)) mod p = 1 (mod p) -----> Euler's theorem
-    5. Chinese Remainder Theorum :-
+    5. Chinese Remainder Theorem :-
         x % num[0]    =  rem[0], 
         x % num[1]    =  rem[1], 
         .......................

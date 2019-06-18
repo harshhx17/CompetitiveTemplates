@@ -1,6 +1,5 @@
 #include<bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
 using namespace std;
 using namespace __gnu_pbds;
 
@@ -11,11 +10,9 @@ using namespace __gnu_pbds;
 #endif
 
 
-typedef long long ll;
+typedef int ll;
 typedef pair<ll, ll> pll;
 typedef gp_hash_table<long long, long long> umap;
-typedef tree<int, null_type, less<int>, rb_tree_tag,
-		tree_order_statistics_node_update> oset;
 // not that imp
 typedef pair<pll, ll> plll;
 typedef vector<ll> vl;
@@ -63,8 +60,75 @@ mt19937 rng32(chrono::steady_clock::now().time_since_epoch().count());
 inline bool equals(double a, double b) {return fabs(a - b) < 1e-9;}
 ll gcd(ll a, ll b){ return b==0 ? a : gcd(b, a%b); }
 
-const ll maxn = 500005;
 ll n;
+
+struct Node
+{
+    Node* right;
+    Node* left;
+    ll val;
+    ll lazy;
+    Node(ll value){
+        right = NULL;
+        left = NULL;
+        val = value;
+        lazy = 0;
+    }
+};
+
+Node *root;
+
+void init(){
+    root = new Node(n);
+}
+
+void push(Node* base,ll l,ll r){
+    ll mid = (l+r)/2;
+    if(base->left == NULL && base->right == NULL){
+        base->left = new Node(mid-l+1);
+        base->right = new Node(r-mid);
+        if(base->lazy == 1){
+            base->right->val = 0;
+            base->left->val = 0;
+            base->right->lazy = 1;
+            base->left->lazy = 1;
+        }
+    }
+    else{
+        if(base->lazy == 1){
+            base->left->val = 0;
+            base->left->lazy = 1;
+            base->right->val = 0;
+            base->right->lazy = 1;
+        }
+        else if(base->lazy == 2){
+            base->left->val = mid-l+1;
+            base->right->val = r-mid;
+            base->left->lazy = 2; 
+            base->right->lazy = 2;
+        }
+    }
+    base->lazy = 0;
+}
+
+void update(Node* base, ll l, ll r,  ll ql, ll qr, ll val){
+    if(ql>qr) return;
+    if(l == ql && r == qr){
+        base->lazy = val;
+        if(val == 1)
+            (*base).val = 0;
+        else if(val == 2)
+            base->val = qr-ql+1;
+    }
+    else{
+        push(base, l , r);
+        ll mid = (l+r)/2;
+        update(base->left, l, mid, ql, min(qr,mid), val);
+        update(base->right, mid+1, r, max(ql,mid+1), qr, val);
+        base->val = base->left->val + base->right->val;
+    }
+}
+
 
 int main() 
 { 
@@ -75,6 +139,17 @@ int main()
         freopen("input.txt", "r", stdin);
         freopen("output.txt", "w", stdout);
     #endif
-    cin>>n;
+    int t = 1;
+    // cin>>t;
+    while(t--){
+        cin>>n;
+        init();
+        ll m; cin>>m;
+        rep(i,m){
+            ll a,b,c; cin>>a>>b>>c; a--; b--;
+            update(root,0,n-1,a,b,c);
+            cout<<root->val<<endl;
+        }
+    }
     end_routine();
 }

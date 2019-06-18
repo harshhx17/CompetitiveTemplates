@@ -1,6 +1,5 @@
 #include<bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
 using namespace std;
 using namespace __gnu_pbds;
 
@@ -14,15 +13,13 @@ using namespace __gnu_pbds;
 typedef long long ll;
 typedef pair<ll, ll> pll;
 typedef gp_hash_table<long long, long long> umap;
-typedef tree<int, null_type, less<int>, rb_tree_tag,
-		tree_order_statistics_node_update> oset;
 // not that imp
 typedef pair<pll, ll> plll;
 typedef vector<ll> vl;
 typedef vector<pll> vll;
 
 #define inf 200000000000000ll
-#define mod 1000000007ll
+// #define mod 1000000007ll
 #define eps 1e-7
 #define PI 3.1415926535897932385
 // #define PI acos(-1)
@@ -40,6 +37,9 @@ typedef vector<pll> vll;
 #define frr(i,a,b) for (ll i = (a), _b = (b); i >= _b; i--)
 #define foreach(it,ar) for (auto it = ar.begin(); it != ar.end(); it++)
 #define fill(ar,val) memset(ar, val, sizeof(ar))
+//not so imp
+#define fill0(ar) fill((ar), 0)
+#define fillinf(ar) fill((ar), inf)
 
 #ifdef bhartiya
 #define trace(...) __f(#__VA_ARGS__, __VA_ARGS__)
@@ -66,6 +66,44 @@ ll gcd(ll a, ll b){ return b==0 ? a : gcd(b, a%b); }
 const ll maxn = 500005;
 ll n;
 
+int powmod (int a, int b, int p) {
+    int res = 1;
+    while (b)
+        if (b & 1)
+            res = int (res * 1ll * a % p),  --b;
+        else
+            a = int (a * 1ll * a % p),  b >>= 1;
+    return res;
+}
+
+int generator (int p) {
+    vector<int> fact;
+    int phi = p-1,  n = phi;
+    for (int i=2; i*i<=n; ++i)
+        if (n % i == 0) {
+            fact.push_back (i);
+            while (n % i == 0)
+                n /= i;
+        }
+    if (n > 1)
+        fact.push_back (n);
+
+    for (int res=2; res<=p; ++res) {
+        bool ok = true;
+        for (size_t i=0; i<fact.size() && ok; ++i)
+            ok &= powmod (res, phi / fact[i], p) != 1;
+        if (ok)  return res;
+    }
+    return -1;
+}
+
+bool isPrime(ll n){
+    for(ll i=2;i*i<=n;i++){
+        if(n%i==0)return false;
+    }
+    return true;
+}
+
 int main() 
 { 
 	ios_base::sync_with_stdio(false);
@@ -75,6 +113,23 @@ int main()
         freopen("input.txt", "r", stdin);
         freopen("output.txt", "w", stdout);
     #endif
-    cin>>n;
+    int t = 1;
+    // cin>>t;
+    while(t--){
+        cin>>n;
+        ll a = 2;
+        ll x = 1<<15;
+        while(a<20){
+            ll mod = x*a+1;
+            if(isPrime(mod)){
+                ll g = generator(mod);
+                ll root = pow(g,a);
+                ll inv = powmod(root, mod-2, mod);
+                trace(mod, g, root, inv);
+            }
+            a++;
+        }
+    }
     end_routine();
 }
+////Use for ntt

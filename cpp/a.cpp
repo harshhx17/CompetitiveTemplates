@@ -12,6 +12,7 @@ using namespace __gnu_pbds;
 
 
 typedef long long ll;
+typedef long long ld;
 typedef pair<ll, ll> pll;
 typedef gp_hash_table<long long, long long> umap;
 typedef tree<int, null_type, less<int>, rb_tree_tag,

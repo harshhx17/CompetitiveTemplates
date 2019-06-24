@@ -26,7 +26,7 @@ bool kmp(string pat, string txt){
 }
 
 void make_lps(string s){
-    // a[0] = 0;
+    lps[0] = 0; //Not needed as already initialised
     ll n = s.length();
     ll i = 1;
     ll len = 0;
@@ -38,7 +38,7 @@ void make_lps(string s){
         }
         else {
             if(len == 0){
-                //a[i]=0; Not needed as already initialised
+                lps[i]=0; //Not needed as already initialised
                 i++;
             }
             else{

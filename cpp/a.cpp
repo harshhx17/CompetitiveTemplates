@@ -64,7 +64,9 @@ inline bool equals(double a, double b) {return fabs(a - b) < 1e-9;}
 ll gcd(ll a, ll b){ return b==0 ? a : gcd(b, a%b); }
 
 const ll maxn = 500005;
-ll n;
+
+void solve(){
+}
 
 int main() 
 { 
@@ -75,6 +77,6 @@ int main()
         freopen("input.txt", "r", stdin);
         freopen("output.txt", "w", stdout);
     #endif
-    cin>>n;
+    solve();
     end_routine();
 }

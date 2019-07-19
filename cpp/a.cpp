@@ -10,20 +10,20 @@ using namespace __gnu_pbds;
     // #pragma GCC target ("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,tune=native")
 #endif
 
-
+#define int long long
 typedef long long ll;
-typedef long long ld;
-typedef pair<ll, ll> pll;
-typedef gp_hash_table<long long, long long> umap;
+typedef long double ld;
+typedef pair<int, int> pii;
+typedef gp_hash_table<int, int> umap;
 typedef tree<int, null_type, less<int>, rb_tree_tag,
 		tree_order_statistics_node_update> oset;
 // not that imp
-typedef pair<pll, ll> plll;
-typedef vector<ll> vl;
-typedef vector<pll> vll;
+typedef pair<pii, int> piii;
+typedef vector<int> vi;
+typedef vector<pii> vii;
 
-#define inf 200000000000000ll
-#define mod 1000000007ll
+#define inf 200000000000000
+#define mod 1000000007
 #define eps 1e-7
 #define PI 3.1415926535897932385
 // #define PI acos(-1)
@@ -34,13 +34,14 @@ typedef vector<pll> vll;
 #define ff first
 #define ss second
 #define all(ar) ar.begin(), ar.end()
+#define sz(x) (int)(x).size()
 
-#define fr(i,a,b) for (ll i = (a), _b = (b); i <= _b; i++)
-#define rep(i,n) for (ll i = 0, _n = (n); i < _n; i++)
-#define repr(i,n) for (ll i = n - 1; i >= 0; i--)
-#define frr(i,a,b) for (ll i = (a), _b = (b); i >= _b; i--)
+#define fr(i,a,b) for (int i = (a), _b = (b); i <= _b; i++)
+#define rep(i,n) for (int i = 0, _n = (n); i < _n; i++)
+#define repr(i,n) for (int i = n - 1; i >= 0; i--)
+#define frr(i,a,b) for (int i = (a), _b = (b); i >= _b; i--)
 #define foreach(it,ar) for (auto it = ar.begin(); it != ar.end(); it++)
-#define fill(ar,val) memset(ar, val, sizeof(ar))
+#define fil(ar,val) memset(ar, val, sizeof(ar))
 
 #ifdef bhartiya
 #define trace(...) __f(#__VA_ARGS__, __VA_ARGS__)
@@ -62,14 +63,16 @@ int begtime = clock();
 
 mt19937 rng32(chrono::steady_clock::now().time_since_epoch().count());
 inline bool equals(double a, double b) {return fabs(a - b) < 1e-9;}
-ll gcd(ll a, ll b){ return b==0 ? a : gcd(b, a%b); }
+int gcd(int a, int b){ return b==0 ? a : gcd(b, a%b); }
+ll modpow(ll b, ll e) {
+	ll ans=1; for(;e;b=b*b%mod,e/=2) if(e&1) ans=ans*b%mod; return ans;}
 
-const ll maxn = 500005;
+const int maxn = 1000005;
 
 void solve(){
 }
 
-int main() 
+signed main() 
 { 
 	ios_base::sync_with_stdio(false);
     cin.tie(0), cout.tie(0), cout.precision(10); //cout<<fixed;

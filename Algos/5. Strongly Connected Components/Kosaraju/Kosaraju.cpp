@@ -1,111 +1,66 @@
-#include<bits/stdc++.h>
+/*
+ *  directed strongly connected components in O(N+M)
+ *
+ */
+
+#include <bits/stdc++.h>
 using namespace std;
-
-typedef long long ll;
-typedef pair<ll, ll> pll;
-// not that imp
-typedef pair<pll, ll> plll;
-typedef vector<ll> vl;
-typedef vector<pll> vll;
-
-#define pb push_back
-#define bitc  __builtin_popcountl
-#define mp make_pair
-#define ff first
-#define ss second
-
-#define swap(a,b) {a=a^b;b=a^b;a=a^b;}
-#define fr(i,a,b) for (ll i = (a), _b = (b); i <= _b; i++)
-#define rep(i,n) for (ll i = 0, _n = (n); i < _n; i++)
-#define repr(i,n) for (ll i = n - 1; i >= 0; i--)
-#define frr(i,a,b) for (ll i = (a), _b = (b); i >= _b; i--)
-#define debug(x) cout<<#x<<": "<<x<<endl;
-#define debug2(x,y) cout<<#x<<": "<< x<< ", "<< #y<< ": "<< y<< endl;
-
-#define inf 200000000000000ll
-#define mod 1000000007ll
-
-void Kosaraju(int x, vector<int> rev[], int v, bool visited[])
-{
-    visited[x]=true;
-    cout << x << " ";
-    rep(i,rev[x].size())
-    {
-        if(!visited[rev[x][i]])
-        {
-            Kosaraju(rev[x][i], rev, v, visited);
-        }
-    }
-}
-
-void DFS(int source, vector<int> ed[], int v, bool visited[], stack<int> &s)
-{
-    visited[source] = true;
-    rep(i, ed[source].size())
-    {
-        if(!visited[ed[source][i]])
-        {
-            DFS(ed[source][i], ed, v, visited, s);
-        }
-    }
-    s.push(source);        // The vertex is added to stack only when its DFS is complete
-}
-
-int main()
-{
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    #ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-    #endif
-
-    int v;
-    cin >> v;
-    vector<int> ed[v+1];
-    int n;
-    cin >> n;
-    vector<int> rev[v+1];
-    rep(i,n)
-    {
-        int a;
-        cin >> a;
-        int b;
-        cin >> b;
-
-        rev[b].push_back(a);                      // Stores the transpose graph !
-        ed[a].push_back(b);        
-    }
+struct StrongComp{
+    int N;
+    vector<vector<int> > G, invG;
+    vector<int> component;
+    int number_of_components;
+    vector<bool> vis;
     stack<int> s;
-    bool visited[v+1] = {false};
-
-    rep(i,v)
-    {
-        if(!visited[i+1])
-        {
-            DFS(i+1, ed, v, visited, s);          // Pushes vertices in stack according to their 
-                                                  // finishing time of DFS, if vertex 1 finishes 
-                                                  // after vertex 2, then 1 is pushed after 2 
-                                                  // in stack !
-        }
+    StrongComp(int _N):N(_N), G(N), invG(N){}
+    void add_edge(int a, int b){
+        assert(a>=0 && a<N);
+        assert(b>=0 && b<N);
+        G[a].push_back(b);
+        invG[b].push_back(a);
     }
-
-    rep(i,v+1)
-    {
-        visited[i] = false;
+    void dfs(int cur){
+        vis[cur]=true;
+        for(int to:G[cur])
+            if(!vis[to])
+                dfs(to);
+        s.push(cur);
     }
-    int num = 0;
-    while(s.empty()==false)
-    {
-        int x = s.top();
-        if(visited[x]==false)
-        {
-            num++;
-            cout << "SCC " << num << " -> "; 
-            Kosaraju(x,rev,v,visited);           // Does DFS in the order of pops occuring in the 
-                                                 // stack to obtain the SCCs !
-            cout << endl;
+    void invDfs(int cur){
+        vis[cur]=false;
+        component[cur] = number_of_components;
+        for(int to:invG[cur])
+            if(vis[to])
+                invDfs(to);
+    }
+    void calc_components(){
+        vis.clear(); vis.resize(N, false);
+        component.clear();component.resize(N);
+        number_of_components = 0;
+        for(int i=0;i<N;++i)
+            if(!vis[i])
+                dfs(i);
+        for(;!s.empty();s.pop()){
+            if(vis[s.top()]){
+                invDfs(s.top());
+                ++number_of_components;
+        }   }
+    }
+};
+
+
+rep(i,n){
+    for(auto ch: scc.G[i]){
+        adj[scc.component[i]].pb(scc.component[ch]);
+    }
+}
+rep(i,scc.number_of_components){
+    sort(all(adj[i]));
+    adj[i].resize(unique(all(adj[i])) - adj[i].begin());
+    foreach(it, adj[i]){
+        if(*it == i){
+            adj[i].erase(it);
+            break;
         }
-        s.pop();
     }
 }

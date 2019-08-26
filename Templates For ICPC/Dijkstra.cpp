@@ -1,15 +1,15 @@
 ll n,m;
 const ll MAXN = 100005;
-vector<pll> adj[MAXN];
+vector<pii> adj[MAXN];
 ll d[MAXN];
 ll p[MAXN];
 
 void dijkstra(ll s) {
-    rep(i,n) d[i] = inf;
-    rep(i,n) p[i] = -1;
+    fr(i,0,n+1) d[i] = inf;
+    fr(i,0,n+1) p[i] = -1;
 
     d[s] = 0;
-    priority_queue<pll, vector<pll>, greater<pll>> q;
+    priority_queue<pii, vector<pii>, greater<pii>> q;
     q.push({0, s});
     while (!q.empty()) {
         ll v = q.top().second;

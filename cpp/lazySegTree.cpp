@@ -44,3 +44,44 @@ bitset<64> query(ll ind, ll l, ll r, ll ql, ll qr) {
     return query(ind*2+1, l, mid, ql, min(qr, mid)) |
                query(ind*2+2, mid+1, r, max(ql, mid+1), qr);
 }
+
+////////////////// sum with mod, without build function :p///////////
+int lazy[4*maxn];
+int stree[4*maxn];
+int ans = 0;
+
+void push(ll ind, ll l, ll r) {
+	int mid = (l+r)/2;
+	int k1 = mid-l+1, k2 = r-mid;
+	stree[ind*2+1] = (stree[ind*2+1] + k1*lazy[ind])%mod;
+	lazy[ind*2+1] += lazy[ind];
+	stree[ind*2+2] =  (stree[ind*2+2] + k2*lazy[ind])%mod;
+	lazy[ind*2+2] += lazy[ind];
+	lazy[ind] = 0;
+}
+
+void update(ll ind, ll l, ll r, ll ql, ll qr, ll val) {
+    if (ql > qr)
+        return;
+    if (ql == l && qr == r) {
+        stree[ind] = (val * (r-l+1) + stree[ind])%mod;
+        lazy[ind] = (val + lazy[ind])%mod;
+    } else {
+        push(ind,l,r);
+        ll mid = (l + r) / 2;
+        update(ind*2+1, l, mid, ql, min(qr, mid), val);
+        update(ind*2+2, mid+1, r, max(ql, mid+1), qr, val);
+        stree[ind] = (stree[ind*2+1] + stree[ind*2+2])%mod;
+    }
+}
+
+int query(ll ind, ll l, ll r, ll ql, ll qr) {
+    if (ql > qr)
+        return 0;
+    if (ql == l && r == qr)
+        return stree[ind];
+    push(ind,l,r);
+    ll mid = (l + r) / 2;
+    return (query(ind*2+1, l, mid, ql, min(qr, mid)) +
+               query(ind*2+2, mid+1, r, max(ql, mid+1), qr))%mod;
+}

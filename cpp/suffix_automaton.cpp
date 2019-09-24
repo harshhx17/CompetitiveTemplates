@@ -80,3 +80,50 @@ void calcCount(vi &cnt, sa<maxn> &s){
 		cnt[s.st[ind[i]].link] += cnt[ind[i]];
 	}
 }
+
+//////////////////////// dacin  waala
+struct SuffixAutomaton {
+  vector<map<char,int>> next; 
+  vector<int> link;            
+  vector<int> len;
+  vector<int> fPos;
+  int last;                    
+
+  SuffixAutomaton(string const& s) {
+    next.pb(map<char,int>());
+    link.pb(-1);
+    len.pb(0);
+    last = 0;
+    for(int i=0;i<s.size();i++) {
+      next.pb(map<char,int>());
+      len.pb(i+1);
+      link.pb(0);
+      fPos.pb(len.back());
+      int r = next.size() - 1;
+      int p = last;
+      while(p >= 0 && next[p].find(s[i]) == next[p].end()) {
+        next[p][s[i]] = r;
+        p = link[p];
+      }
+      if(p != -1) {
+        int q = next[p][s[i]];
+        if(len[p] + 1 == len[q]) {
+          link[r] = q;
+        } else {
+          next.pb(next[q]); 
+          len.pb(len[p] + 1);
+          link.pb(link[q]); 
+          fPos.pb(fPos[q]);
+          int qq = next.size()-1;
+          link[q] = qq;
+          link[r] = qq;
+          while(p >= 0 && next[p][s[i]] == q) {
+            next[p][s[i]] = qq;
+            p = link[p];
+          }
+        }
+      }
+      last = r;
+    }
+  }
+};

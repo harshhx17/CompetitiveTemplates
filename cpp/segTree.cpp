@@ -18,20 +18,30 @@ node merge(const node &a, const node &b){
     return ans;
 }
 
-void update(node &a, const node &b){
-    a.val += b.val;
-    a.rmax += b.val;
+//problem... its function parameter can match with the other update.
+struct node{
+    int ind, val;
+};
+
+node merge(const node &a, const node &b){
+    if(a.val < b.val){
+		return a;
+	}
+	else return b;
+}
+
+void update(node &a, int val, int x){
+    a.val = val;
+	a.ind = x;
 }
 
 node seg[2*maxn + 10];
 node iden;
-vector<node> base(maxn+10);
 
-void update(int pos, node val, int ind = 1, int l = 1, int r = maxn){
+void update(int pos, int val, int ind = 1, int l = 0, int r = maxn-1){
     if(l == r) {
-        update(seg[ind], val);
-        // seg[ind] = {val, INF};
-    } // update function
+        update(seg[ind], val, pos);
+    }
     else{
         int mid = (l+r)/2;
         if(pos > mid) update(pos, val, ind*2+1, mid+1, r);
@@ -40,21 +50,15 @@ void update(int pos, node val, int ind = 1, int l = 1, int r = maxn){
     }
 }
 
-node query(int ql, int qr, int ind = 1, int l = 1, int r = maxn){
+node query(int ql, int qr, int ind = 1, int l = 0, int r = maxn-1){
     if(ql > r || qr < l) return iden;// identity value
     if(ql <= l && qr >= r) return seg[ind];
     int mid = (l+r)/2;
     return merge(query(ql, qr, ind*2, l, mid), query(ql, qr, ind*2+1, mid+1, r));
 }
 
-void build(int ind=1, int l=1, int r=maxn){
-    if(l==r) seg[ind] = base[l];
-    else{
-        int mid = (l+r)/2;
-        build(ind*2, l, mid);
-        build(ind*2+1, mid+1, r);
-        seg[ind] = merge(seg[ind*2], seg[ind*2+1]);
-    }
+void build() { // initialize the values from maxn+i :p
+    repr(i,maxn) seg[i] = merge(seg[i*2], seg[i*2+1]);
 }
 
 /// max sum of segment ending at r and the coordinate of left point in xco.. AC

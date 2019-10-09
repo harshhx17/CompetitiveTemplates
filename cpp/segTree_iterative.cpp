@@ -1,27 +1,37 @@
-//really fast iterative segment-tree implementation
-//uses std::function for subtree-merges and leaf-updates
-#include <bits/stdc++.h>
-using namespace std;
-
 template<typename T>
 struct segTree{
-    vector<T> data;
-    int N;
     T idVal;
-    function<T(T const&, T const&)> combine;
-    function<void(T &, T const&)> leafMod;
-    segTree(vector<T> const&base, T const& identity_value, function<void(T &, T const&)> const&leaf_update, function<T(T const&, T const&)> const&subtree_combine):N(base.size()), idVal(identity_value), combine(subtree_combine), leafMod(leaf_update){
+    int N;
+    vector<T> data;
+
+	T combine(const T &a, const T &b){
+		T ans = 0;
+		ans = a+b;
+		return ans;
+	}
+
+	void leafMod(T &a, T const&b){
+		a = b; // or add, max, min
+	}
+
+    segTree(int N, T idVal): idVal(idVal), N(N) {
         data.resize(2*N);
-        copy(base.begin(), base.end(), data.begin()+N);
-        for(int i=N-1;i>=0;--i){
+    }
+
+	//before build add values of index i to data[N+i] from 0 to N
+	void build(){
+		for(int i=N-1;i>=0;--i){
             data[i]=combine(data[i<<1], data[i<<1|1]);
         }
-    }
+	}
+
     void update(int pos, T val){
         for(leafMod(data[pos+=N], val);pos>>=1;){
             data[pos]=combine(data[pos<<1], data[pos<<1|1]);
         }
     }
+
+    // in range [l, r)
     T query(int l, int r){
         T retL=idVal, retR=idVal;
         for(l+=N, r+=N;l<r;l>>=1, r>>=1){
@@ -31,25 +41,3 @@ struct segTree{
         return combine(retL, retR);
     }
 };
-
-
-/*
-
-Works fine!!
-
-
-int combine_high(const int &a, const int &b){
-    return max(a,b);
-}
-
-int combine_low(const int &a, const int &b){
-    return min(a,b);
-}
-
-void update(int &a, const int &b){
-    a = b;
-}
-
-vector<int> base(n+1, 0);
-segTree<int> seg(base, 0ll, update, combine);
-*/

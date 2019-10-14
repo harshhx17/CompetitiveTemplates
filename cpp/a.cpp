@@ -42,7 +42,7 @@ typedef vector<pii> vii;
 #define repr(i, n) for (int i = n - 1; i >= 0; i--)
 #define frr(i, a, b) for (int i = (a), _b = (b); i >= _b; i--)
 #define foreach(it, ar) for (auto it = ar.begin(); it != ar.end(); it++)
-#define fil(ar, val) memset(ar, val, sizeof(ar))  // 0x7f for inf
+#define fil(ar, val) memset(ar, val, sizeof(ar))  // 0x7f for inf, 0x80 for -INF
 
 #ifdef bhartiya
 template<typename T>
@@ -98,8 +98,8 @@ void solve()
 signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0), cout.tie(0), cout.precision(10);  // cout<<fixed;
-    cin.exceptions(cin.failbit);
 #ifdef bhartiya
+    cin.exceptions(cin.failbit);
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
 #endif

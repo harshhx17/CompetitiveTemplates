@@ -5,9 +5,7 @@ struct segTree{
     vector<T> data;
 
 	T combine(const T &a, const T &b){
-		T ans = 0;
-		ans = a+b;
-		return ans;
+		return a+b;
 	}
 
 	void leafMod(T &a, T const&b){

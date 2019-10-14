@@ -40,8 +40,10 @@ void preprocess(ll root){
 /////////////////////////
 //Jo dugar, spj wagera use karte hain
 /////////////////////////
-ll construct(){
-    fr(i,1,17){
+int dp[21][maxn];
+
+void construct(){
+    fr(i,1,20){
         rep(j,maxn){
             dp[i][j] = dp[i-1][dp[i-1][j]];
         }
@@ -50,11 +52,11 @@ ll construct(){
 
 ll lca(ll x, ll y){
     if(depth[x] < depth[y]) swap(x,y);
-    repr(i,18){
+    repr(i,21){
         if(depth[dp[i][x]] >= depth[y]) x = dp[i][x];
     } 
     if(x == y) return x;
-    repr(i,18){
+    repr(i,21){
         if(dp[i][x] != dp[i][y]){
             x = dp[i][x], y = dp[i][y];
         }

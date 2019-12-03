@@ -23,7 +23,7 @@ typedef pair<pii, int> piii;
 typedef vector<int> vi;
 typedef vector<pii> vii;
 
-#define INF 200000000000000
+#define INF 4557430888798830399llqq
 #define MOD 1000000007
 #define EPS 1e-7
 #define PI 3.1415926535897932385
@@ -42,7 +42,7 @@ typedef vector<pii> vii;
 #define repr(i, n) for (int i = n - 1; i >= 0; i--)
 #define frr(i, a, b) for (int i = (a), _b = (b); i >= _b; i--)
 #define foreach(it, ar) for (auto it = ar.begin(); it != ar.end(); it++)
-#define fil(ar, val) memset(ar, val, sizeof(ar))  // 0x7f for inf, 0x80 for -INF
+#define fil(ar, val) memset(ar, val, sizeof(ar))  // 0x3f for inf, 0x80 for -INF can also use with pairs
 
 #ifdef bhartiya
 template<typename T>

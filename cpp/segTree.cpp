@@ -19,6 +19,7 @@ node merge(const node &a, const node &b){
 }
 
 //problem... its function parameter can match with the other update.
+const int maxn = 1ll<<20;
 struct node{
     int ind, val;
 };
@@ -63,3 +64,27 @@ void build() { // initialize the values from maxn+i :p
 
 /// max sum of segment ending at r and the coordinate of left point in xco.. AC
 // can do the entire thing with dacin's template too...
+
+
+/////////////////////
+piii query(int sum, int ind = 1, int l = 0, int r = maxn - 1) {
+    if (l == r) {
+        if (sum >= seg[ind].ff) {
+            return {seg[ind], r};
+        } else {
+            // trace(ind, l, r, l-1, seg[ind]);
+            return {{0, 0}, l - 1};
+        }
+    }
+    if (seg[ind].ff <= sum) { return {seg[ind], r}; }
+    int mid = (l + r) / 2;
+    if (seg[ind * 2].ff > sum) { ////// Not >= as that will not ensure the rightmost index for sum is less
+        return query(sum, ind * 2, l, mid);
+    } else {
+        int val = sum - seg[ind * 2].ff;
+        auto res = query(val, ind * 2 + 1, mid + 1, r);
+        // assert(sum == (seg[ind*2].ff + res.ff.ff));
+        return {{seg[ind * 2].ff + res.ff.ff, res.ff.ss + seg[ind * 2].ss},
+                res.ss};
+    }
+}

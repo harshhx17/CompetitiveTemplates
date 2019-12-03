@@ -9,7 +9,7 @@
         int len, link, firstPos;
         map<char, int> next;
     };
-    //firstPos is -1 for clones and is the first occurence of that substring for others.
+    //firstPos is -1 for clones(or not equal to len// don't remember ki iss  template mein kyaa daala tha) and is the first occurence of that substring for others.
     state st[SZ * 2]; 
     int sz, last;
     ll ans[SZ * 2]; // number of distinct substrings from current pos
@@ -86,7 +86,7 @@ struct SuffixAutomaton {
   vector<map<char,int>> next; 
   vector<int> link;            
   vector<int> len;
-  vector<int> fPos;
+  vector<int> fPos; // 1 indexing... equal to len for non-cloned states.
   int last;                    
 
   SuffixAutomaton(string const& s) {
@@ -94,7 +94,8 @@ struct SuffixAutomaton {
     link.pb(-1);
     len.pb(0);
     last = 0;
-    for(int i=0;i<s.size();i++) {
+    fPos.pb(0);
+    for(int i=0;i<sz(s);i++) {
       next.pb(map<char,int>());
       len.pb(i+1);
       link.pb(0);
@@ -127,3 +128,9 @@ struct SuffixAutomaton {
     }
   }
 };
+
+void build_adj(SuffixAutomaton sa){
+    fr(i,1,sz(sa.link)-1){ // root(0) has parent -1
+        adj[sa.link[i]].pb(i);
+    }
+}

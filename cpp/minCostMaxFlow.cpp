@@ -10,7 +10,7 @@
  */
 #pragma once
 
-// #include <bits/extc++.h> /// include-line, keep-include
+#include <bits/extc++.h> /// include-line, keep-include
 
 const ll INF = numeric_limits<ll>::max() / 4;
 typedef vector<ll> VL;
@@ -67,6 +67,9 @@ struct MCMF {
 	pair<ll, ll> maxflow(int s, int t) {
 		ll totflow = 0, totcost = 0;
 		while (path(s), seen[t]) {
+			// if(pi[t]>=0){ //// Add this for minCost and no MaxFlow
+			// 	break;
+			// }
 			ll fl = INF;
 			for (int p,r,x = t; tie(p,r) = par[x], x != s; x = p)
 				fl = min(fl, r ? cap[p][x] - flow[p][x] : flow[x][p]);
@@ -79,6 +82,8 @@ struct MCMF {
 		return {totflow, totcost};
 	}
 
+
+	// Always remember that the cost is taken per unit flow.
 	// If some costs can be negative, call this before maxflow:
 	void setpi(int s) { // (otherwise, leave this out)
 		fill(all(pi), INF); pi[s] = 0;

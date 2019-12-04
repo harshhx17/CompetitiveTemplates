@@ -23,7 +23,7 @@ typedef pair<pii, int> piii;
 typedef vector<int> vi;
 typedef vector<pii> vii;
 
-#define INF 4557430888798830399llqq
+#define INF 4557430888798830399ll
 #define MOD 1000000007
 #define EPS 1e-7
 #define PI 3.1415926535897932385

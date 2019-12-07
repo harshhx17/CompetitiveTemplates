@@ -24,14 +24,14 @@ struct node{
     int ind, val;
 };
 
-node merge(const node &a, const node &b){
+node merge(node a, node b){
     if(a.val < b.val){
 		return a;
 	}
 	else return b;
 }
 
-void update(node &a, int val, int x){
+void upd(node &a, int val, int x){
     a.val = val;
 	a.ind = x;
 }
@@ -41,7 +41,7 @@ node iden;
 
 void update(int pos, int val, int ind = 1, int l = 0, int r = maxn-1){
     if(l == r) {
-        update(seg[ind], val, pos);
+        upd(seg[ind], val, pos);
     }
     else{
         int mid = (l+r)/2;

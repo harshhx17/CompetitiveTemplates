@@ -84,8 +84,8 @@ int begtime = clock();
 
 mt19937 rng32(chrono::steady_clock::now().time_since_epoch().count());
 inline bool equals(double a, double b) { return fabs(a - b) < 1e-9; }
-ll modpow(ll b, ll e) {
-	ll ans=1; for(;e;b=b*b%MOD,e/=2) if(e&1) ans=ans*b%MOD; return ans; }
+ll modpow(ll b, ll e, ll mod=MOD) {
+    ll ans=1; for(;e;b=b*b%mod,e/=2) if(e&1) ans=ans*b%mod; return ans; }
 // clang-format on
 
 const int maxn = 1000005;

@@ -1,9 +1,13 @@
 
-const ll maxn = 10005;
-ll n,  cur_pos = 0, parent[maxn], parentEdge[maxn], a[maxn], tree[4*maxn], heavy[maxn], depth[maxn], head[maxn], pos[maxn];
-vector<pll> adj[maxn];
-pll edgeIndex[maxn];
+// Edge based hld
+// for every edge, take the non-parent element as its indicator.
+// pos[i] -- position of ith node in segTree
+// parentEdge[i] -- weight for the ith node
 
+
+ll n,  cur_pos = 1, parent[maxn], parentEdge[maxn], a[maxn], heavy[maxn], depth[maxn], head[maxn], pos[maxn];
+vector<pii> adj[maxn];
+pii edgeIndex[maxn];
 
 
 ll dfs(ll s){
@@ -20,7 +24,7 @@ ll dfs(ll s){
     return sz;
 }
 
-ll decompose(ll v, ll h, ll p){
+void decompose(ll v, ll h, ll p){
     a[cur_pos] = parentEdge[v];
     head[v] = h, pos[v] = cur_pos++;
 
@@ -33,76 +37,40 @@ ll decompose(ll v, ll h, ll p){
 }
 
 void hdlUtil(){
-    fill(heavy, -1);
-    cur_pos = 0;
-    dfs(0);
-    decompose(0,0,-1);
+    fil(heavy, -1);
+    cur_pos = 1; /// Root Node
+    dfs(1); //Root Node
+    decompose(1,0,-1); // Root Node
 }
 
-void build_seg_tree(ll ind, ll l, ll r){
-    if(l == r) {
-        tree[ind] = a[l];
-        return;
-    }
-    ll mid = (l+r)/2;
-    build_seg_tree(ind*2+1, l, mid);
-    build_seg_tree(ind*2+2, mid+1, r);
-    tree[ind] = max(tree[ind*2+1], tree[ind*2+2]);
-}
 
-ll seg_query(ll ind, ll l, ll r, ll ql, ll qr){
-    if(ql > qr) 
-        return 0;
-    if(l == ql && r == qr) return tree[ind];
-    ll mid = (l+r)/2;
-    ll a = seg_query(ind*2+1, l, mid, ql, min(qr, mid));
-    ll b = seg_query(ind*2+2, mid+1, r, max(ql, mid+1), qr);
-    return max(a,b);
-}
-
-inline ll seg_query(ll a, ll b){
-    return seg_query(0, 0, n-1, a, b);
-}
-
-void update_seg_tree(ll ind, ll l, ll r, ll pos, ll val){
-    if(l == r && l == pos) {
-        tree[ind] = val;
-        return;
-    }
-    ll mid = (l+r)/2;
-    if(pos <= mid)
-        update_seg_tree(ind*2+1, l, mid, pos, val);
-    else
-        update_seg_tree(ind*2+2, mid+1, r, pos, val);
-    tree[ind] = max(tree[ind*2+1], tree[ind*2+2]);
-}
-
-ll query(ll l, ll r){
-    ll res = -inf;
+ll que(ll l, ll r){
+    ll res = -INF; // Iden
     while(head[l] != head[r]){
         if(depth[head[l]] > depth[head[r]]) swap(l, r);
         // note that pos[head[r]] < pos[r]
-        res = max(res, seg_query(pos[head[r]], pos[r]));
+        res = max(res, query(pos[head[r]], pos[r])); // seg_query, merge function
         r = parent[head[r]];
     }
     if(depth[l] > depth[r]) swap(l,r);
-    res = max(res, seg_query(pos[l]+1, pos[r]));
+    res = max(res, query(pos[l]+1, pos[r])); // merge function, seg_query
     return res;
 }
 
-
-//Inside Main
-
-//for multiple test cases
-rep(i,n) {
-    adj[i].clear();
-}
-rep(i,n-1){
-    ll x,y,cost;
-    cin>>x>>y>>cost; x--; y--;
-    edgeIndex[i] = mp(x,y);
-    adj[x].pb(mp(y,cost));
-    adj[y].pb(mp(x,cost));
-}
-hdlUtil();
-build_seg_tree(0,0,n-1);
+///Inside main
+    fil(seg,0x80); // identity elem
+	fil(a, 0x80); // identity elem
+	fr(i,1,n+10){
+		adj[i].clear();
+	}
+	fr(i,1,n-1){
+		int u,v,c;
+		cin>>u>>v>>c;
+		edgeIndex[i] = {u,v};
+		adj[u].pb({v,c});
+		adj[v].pb({u,c});
+	}
+	hdlUtil();
+	fr(i,0,n+10)
+		seg[i+maxn] = a[i];
+	build();

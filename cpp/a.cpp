@@ -18,7 +18,6 @@ typedef pair<int, int> pii;
 typedef gp_hash_table<int, int> umap;
 typedef tree<int, null_type, less<int>, rb_tree_tag,
 		tree_order_statistics_node_update> oset;
-// not that imp
 typedef pair<pii, int> piii;
 typedef vector<int> vi;
 typedef vector<pii> vii;
@@ -26,8 +25,7 @@ typedef vector<pii> vii;
 #define INF 4557430888798830399ll
 #define MOD 1000000007
 #define EPS 1e-7
-#define PI 3.1415926535897932385
-// #define PI acos(-1)
+#define PI acos(-1)
 
 #define pb push_back
 #define bitc __builtin_popcountll

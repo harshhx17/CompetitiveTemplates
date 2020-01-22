@@ -41,7 +41,7 @@ typedef vector<pii> vii;
 #define rep(i, n) for (int i = 0, _n = (n); i < _n; i++)
 #define repr(i, n) for (int i = n - 1; i >= 0; i--)
 #define frr(i, a, b) for (int i = (a), _b = (b); i >= _b; i--)
-#define foreach(it, ar) for (auto it = ar.begin(); it != ar.end(); it++)
+#define trav(a, x) for(auto& a : x)
 #define fil(ar, val) memset(ar, val, sizeof(ar))  // 0x3f for inf, 0x80 for -INF can also use with pairs
 
 #ifdef bhartiya

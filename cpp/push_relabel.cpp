@@ -38,7 +38,7 @@ struct PushRelabel {
 	Flow maxflow(int s, int t) {
 		int v = sz(g); H[s] = v; ec[t] = 1;
 		vi co(2*v); co[0] = v-1;
-		rep(i,0,v) cur[i] = g[i].data();
+		rep(i,v) cur[i] = g[i].data();
 		trav(e, g[s]) add_flow(e, e.c);
 
 		for (int hi = 0;;) {
@@ -50,7 +50,7 @@ struct PushRelabel {
 					trav(e, g[u]) if (e.c && H[u] > H[e.dest]+1)
 						H[u] = H[e.dest]+1, cur[u] = &e;
 					if (++co[H[u]], !--co[hi] && hi < v)
-						rep(i,0,v) if (hi < H[i] && H[i] < v)
+						rep(i,v) if (hi < H[i] && H[i] < v)
 							--co[H[i]], H[i] = v + 1;
 					hi = H[u];
 				} else if (cur[u]->c && H[u] == H[cur[u]->dest]+1)

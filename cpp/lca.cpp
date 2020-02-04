@@ -1,7 +1,7 @@
 const maxn = 100005, K;
 ll tin[maxn], tout[maxn];
 ll up[K+1][maxn];
-ll timer = 0;
+ll timer = 1;
 vector<ll> adj[maxn];
 
 

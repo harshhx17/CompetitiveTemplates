@@ -1,5 +1,4 @@
 
-const int maxn = 1000005;
 const int K = 20;
 vi adj[maxn];
 bool centroid[maxn];
@@ -8,7 +7,7 @@ int n, q;
 
 void dfs2(int u,int p){
     sz[u] = 1;
-    for(int v : adj[u])
+    for(auto v : adj[u])
         if(v != p && !centroid[v]){
             dfs2(v, u);
             sz[u] += sz[v];
@@ -16,7 +15,7 @@ void dfs2(int u,int p){
 }
 
 int get(int u, int p, int S){
-    for(int v : adj[u])
+    for(auto v : adj[u])
         if(v != p && !centroid[v] && sz[v] > S / 2)
             return get(v, u, S);
     return u;
@@ -29,21 +28,22 @@ int solve(int u){
     if(sz[u] == n){
         // we have the root of centroid tree
     }
-    for(int v : adj[c])
+    for(auto v : adj[c])
         if(!centroid[v])
             par[solve(v)] = c;
     return c;
 }
 
-void dfs1(int u,int p){
+//remove from here if distance is not needed
+void lca_dfs(int u,int p){
     dp[0][u] = p;
     depth[u] = depth[p] + 1;
-    for(int v : adj[u])
+    for(auto v : adj[u])
         if(v != p)
-            dfs1(v, u);
+            lca_dfs(v, u);
 }
 
-void preprocess(int n){
+void construct_lca(int n){
     fr(k, 1, K)
         fr(i, 1, n)
             dp[k][i] = dp[k - 1][dp[k - 1][i]];
@@ -63,8 +63,8 @@ int lca(int u,int v){
 int dis(int u,int v){ return depth[u] + depth[v] - 2 * depth[lca(u, v)]; }
 
 signed main(){
-    dfs1(1, 0);
-    preprocess(n);
+    lca_dfs(1, 0);
+    construct_lca(n);
     solve(1);
     return 0;
 }
